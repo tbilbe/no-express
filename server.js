@@ -3,16 +3,24 @@ var app = express();
 var port = 3000;
 var sqlite3 = require('sqlite3');
 // create new database and assign it to a variable
-var db = new sqlite3.Database('HelloExpress.db');
-
+var db = new sqlite3.Database('HelloEpress.db');
+// fire up the server 'node server.js' show msg in cli
 app.listen(port, function(){
   console.log('Server is listening on port: '+port);
 });
 
 
 // homepage '/' GET request
-app.get('/', function(){
+app.get('/', function(request, response){
   console.log('you found the first page');
+});
+
+// quotes get from db
+app.get('/quotes', (request, response) => {
+  db.all("SELECT * FROM Quotes", (err, rows) => {
+    console.log('GET Quotes: The Database contains the following: ' + rows);
+    response.send(rows);
+  });
 });
 
 // GET request
