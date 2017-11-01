@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var port = 3000;
+var sqlite3 = require('sqlite3');
+// create new database and assign it to a variable
+var db = new sqlite3.Database('HelloExpress.db');
 
 app.listen(port, function(){
   console.log('Server is listening on port: '+port);
