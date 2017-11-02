@@ -23,6 +23,14 @@ app.get('/quotes', (request, response) => {
   });
 });
 
+// quotes by author
+app.get('/quotes/:author', (request, response) => {
+  db.all('SELECT * FROM QUOTES WHERE Author = ?', [request.params.author], (err, rows) => {
+    console.log('GET Request for author: '+request.params.author);
+    response.send(rows);
+  });
+});
+
 // GET request
 app.get('/about', function(){
   console.log('this is meant to get some info from the server');
@@ -30,8 +38,9 @@ app.get('/about', function(){
 
 
 
-// POST request
-app.post('/order', function(){
+// POST request to quotes db
+app.post('/quotes', (request, response) => {
+  db.run('INSERT INTO Quotes VALUES ?', req.body);
   console.log('this is meant to post something');
 });
 
